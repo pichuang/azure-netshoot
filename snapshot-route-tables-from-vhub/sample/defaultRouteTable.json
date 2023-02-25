@@ -1,4 +1,4 @@
-phil [ ~ ]$ cat vhub-cc-20230225/defaultRouteTable-20230225-022149.json
+phil [ ~ ]$ cat vhub-cc-20230225/defaultRouteTable.json
 {
   "value": [
     {
