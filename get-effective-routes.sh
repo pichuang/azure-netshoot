@@ -4,7 +4,6 @@
 RESOURCE_GROUPNAME="rg-pinhuang"
 VHUB_NAME="vhub-cc"
 
-
 # Get the current timestamp
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 
@@ -36,5 +35,4 @@ for rt in $ROUTE_TABLES; do
     # Call the get-effective-routes command and output the results in JSON format
     az network vhub get-effective-routes --resource-type RouteTable --resource-id ${rt} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $filename
 done
-
 # End of script
