@@ -18,7 +18,7 @@ else
     if $DEBUG_OUTPUT; then
         echo "vHub Resource ID: $resource_id"
     fi
-    dir_name="${VHUB_NAME}-$(date +%Y%m%d)"
+    dir_name="${VHUB_NAME}-${timestamp}"
 
     # if the directory doesn't exist, create it
     if [ ! -d $dir_name ]; then
@@ -48,7 +48,7 @@ for rt in $route_tables; do
     fi
 
     # Create the output filename
-    filename="${rt_name}-${timestamp}.json"
+    filename="${rt_name}.json"
 
     # Call the get-effective-routes command and output the results in JSON format
     az network vhub get-effective-routes --resource-type RouteTable --resource-id ${rt_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $dir_name/$filename
