@@ -34,6 +34,7 @@ Save defaultRouteTable.json
 Save noneRouteTable.json
 
 #
+# Action manually
 # REMOVE static route "192.168.80.0/24" into route table "defaultRouteTable"
 #
 
@@ -73,9 +74,7 @@ diff -bur vhub-cc-20230225-105605/defaultRouteTable.json vhub-cc-20230225-105915
      }
    ]
  }
-
 ```
-
 
 ## Requirements
 
