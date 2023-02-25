@@ -21,8 +21,13 @@ else
     dir_name="${VHUB_NAME}-${timestamp}"
 
     # if the directory doesn't exist, create it
+    # The type of the specified resource like RouteTable, ExpressRouteConnection, HubVirtualNetworkConnection, VpnConnection and P2SConnection.
     if [ ! -d $dir_name ]; then
-        mkdir -p $dir_name
+        mkdir -p $dir_name/RouteTable
+        mkdir -p $dir_name/VpnConnection
+        mkdir -p $dir_name/ExpressRouteConnection
+        mkdir -p $dir_name/HubVirtualNetworkConnection
+        mkdir -p $dir_name/P2SConnection
         echo "Create directory $dir_name"
     else
         echo "Directory $dir_name already exists"
@@ -51,7 +56,16 @@ for rt in $route_tables; do
     filename="${rt_name}.json"
 
     # Call the get-effective-routes command and output the results in JSON format
-    az network vhub get-effective-routes --resource-type RouteTable --resource-id ${rt_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $dir_name/$filename
+    # The type of the specified resource like RouteTable, ExpressRouteConnection, HubVirtualNetworkConnection, VpnConnection and P2SConnection.
+    az network vhub get-effective-routes --resource-type RouteTable  --resource-id ${rt_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $dir_name/RouteTable/$filename
+
+    az network vhub get-effective-routes --resource-type VpnConnection  --resource-id ${rt_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $dir_name/VpnConnection/$filename
+
+    az network vhub get-effective-routes --resource-type ExpressRouteConnection --resource-id ${rt_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $dir_name/ExpressRouteConnection/$filename
+
+    az network vhub get-effective-routes --resource-type HubVirtualNetworkConnection --resource-id ${rt_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $dir_name/HubVirtualNetworkConnection/$filename
+
+    az network vhub get-effective-routes --resource-type P2SConnection --resource-id ${rt_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $dir_name/P2SConnection/$filename
 
     # Check the status of the previous command
     if [ $? -ne 0 ]; then
