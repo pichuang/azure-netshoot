@@ -1,4 +1,4 @@
-# Snapshot Route Tables from vHub
+# Snapshot Effective Routes Tables from vHub
 
 This bash script allows you to export all of the route tables associated with an Azure virtual hub to individual JSON files. The script uses the Azure CLI to retrieve the route table IDs and associated information and then calls the get-effective-routes command to export the routes to JSON.
 
