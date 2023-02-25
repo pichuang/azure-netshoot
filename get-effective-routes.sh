@@ -33,6 +33,6 @@ for rt in $ROUTE_TABLES; do
     filename="${rt_name}-${TIMESTAMP}.json"
 
     # Call the get-effective-routes command and output the results in JSON format
-    az network vhub get-effective-routes --resource-type RouteTable --resource-id ${rt} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $filename
+    az network vhub get-effective-routes --resource-type RouteTable --resource-id ${rt_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $filename
 done
 # End of script
