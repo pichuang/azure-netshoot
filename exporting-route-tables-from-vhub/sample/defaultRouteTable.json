@@ -1,0 +1,27 @@
+phil [ ~ ]$ cat vhub-cc-20230225/defaultRouteTable-20230225-022149.json
+{
+  "value": [
+    {
+      "addressPrefixes": [
+        "192.168.79.0/24"
+      ],
+      "asPath": "",
+      "nextHopType": "VPN_S2S_Gateway",
+      "nextHops": [
+        "/subscriptions/xxxx-xxxx-xxxx-xxxx/resourceGroups/rg-pinhuang/providers/Microsoft.Network/vpnGateways/yyyy-yyyy-yyyy-yyyy-canadacentral-gw"
+      ],
+      "routeOrigin": "/subscriptions/xxxx-xxxx-xxxx-xxxx/resourceGroups/rg-pinhuang/providers/Microsoft.Network/vpnGateways/yyyy-yyyy-yyyy-yyyy-canadacentral-gw"
+    },
+    {
+      "addressPrefixes": [
+        "192.168.78.0/24"
+      ],
+      "asPath": "",
+      "nextHopType": "VPN_S2S_Gateway",
+      "nextHops": [
+        "/subscriptions/xxxx-xxxx-xxxx-xxxx/resourceGroups/rg-pinhuang/providers/Microsoft.Network/vpnGateways/yyyy-yyyy-yyyy-yyyy-canadacentral-gw"
+      ],
+      "routeOrigin": "/subscriptions/xxxx-xxxx-xxxx-xxxx/resourceGroups/rg-pinhuang/providers/Microsoft.Network/vpnGateways/yyyy-yyyy-yyyy-yyyy-canadacentral-gw"
+    }
+  ]
+}
