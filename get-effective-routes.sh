@@ -34,5 +34,11 @@ for rt in $ROUTE_TABLES; do
 
     # Call the get-effective-routes command and output the results in JSON format
     az network vhub get-effective-routes --resource-type RouteTable --resource-id ${rt_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $filename
+
+    # Check the status of the previous command
+    if [ $? -ne 0 ]; then
+        echo "Failed to get effective routes for route table $rt_name"
+        exit 1
+    fi
 done
 # End of script
