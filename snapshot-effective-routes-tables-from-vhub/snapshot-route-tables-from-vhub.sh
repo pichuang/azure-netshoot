@@ -56,7 +56,13 @@ for rt in $route_tables; do
     filename="${rt_name}.json"
 
     # Call the get-effective-routes command and output the results in JSON format
-    az network vhub get-effective-routes --resource-type RouteTable  --resource-id ${rt_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $dir_name/RouteTable/$filename
+    az network vhub get-effective-routes \
+        --resource-type RouteTable \
+        --resource-id ${rt_id} \
+        --resource-group ${RESOURCE_GROUPNAME} \
+        --name ${VHUB_NAME} \
+        --query "value[].{addressPrefixes:addressPrefixes[0], asPath:asPath, nextHopType:nextHopType}" \
+        --output table > $dir_name/RouteTable/$filename
 
     # Check the status of the previous command
     if [ $? -ne 0 ]; then
@@ -89,7 +95,7 @@ for vpn_gateway in $vpn_gateways; do
     filename="${vpn_gateway_name}.json"
 
     # Call the get-effective-routes command and output the results in JSON format
-    az network vhub get-effective-routes --resource-type VpnConnection --resource-id ${vpn_gateway_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $dir_name/VpnConnection/$filename
+    az network vhub get-effective-routes --resource-type VpnConnection --resource-id ${vpn_gateway_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output table > $dir_name/VpnConnection/$filename
 
     # Check the status of the previous command
     if [ $? -ne 0 ]; then
@@ -102,7 +108,7 @@ done
 
 
 # Get ExpressRoute gateway resource id
-express_route_gateways=$(az network express-route gateway list --resource-group ${RESOURCE_GROUPNAME} --query "value[].{name: name, id: id}" --output json |jq -c ".[]")
+express_route_gateways=$(az network express-route gateway list --resource-group ${RESOURCE_GROUPNAME} --query "value[].{name: name, id: id}" --output json | jq -c ".[]")
 if [ $? -ne 0 ]; then
     echo "Failed to get ExpressRoute gateway IDs"
     exit 1
@@ -122,7 +128,13 @@ for express_route_gateway in $express_route_gateways; do
     filename="${express_route_gateway_name}.json"
 
     # Call the get-effective-routes command and output the results in JSON format
-    az network vhub get-effective-routes --resource-type ExpressRouteConnection --resource-id ${express_route_gateway_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $dir_name/ExpressRouteConnection/$filename
+    az network vhub get-effective-routes \
+        --resource-type ExpressRouteConnection \
+        --resource-id ${express_route_gateway_id} \
+        --resource-group ${RESOURCE_GROUPNAME} \
+        --name ${VHUB_NAME} \
+        --query "value[].{addressPrefixes:addressPrefixes[0], asPath:asPath, nextHopType:nextHopType}" \
+        --output table > $dir_name/ExpressRouteConnection/$filename
 
     # Check the status of the previous command
     if [ $? -ne 0 ]; then
@@ -155,7 +167,12 @@ for vnc in $virtual_network_connections; do
     filename="${vnc_name}.json"
 
     # Call the get-effective-routes command and output the results in JSON format
-    az network vhub get-effective-routes --resource-type HubVirtualNetworkConnection --resource-id ${vnc_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $dir_name/HubVirtualNetworkConnection/$filename
+    az network vhub get-effective-routes \
+        --resource-type HubVirtualNetworkConnection \
+        --resource-id ${vnc_id} \
+        --resource-group ${RESOURCE_GROUPNAME} \
+        --name ${VHUB_NAME} \
+        --output table > $dir_name/HubVirtualNetworkConnection/$filename
 
     # Check the status of the previous command
     if [ $? -ne 0 ]; then
@@ -189,7 +206,12 @@ for p2s in $p2s_connections; do
     filename="${p2s_name}.json"
 
     # Call the get-effective-routes command and output the results in JSON format
-    az network vhub get-effective-routes --resource-type P2SConnection --resource-id ${p2s_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output json > $dir_name/P2SConnection/$filename
+    az network vhub get-effective-routes \
+        --resource-type P2SConnection \
+        --resource-id ${p2s_id} \
+        --resource-group ${RESOURCE_GROUPNAME} \
+        --name ${VHUB_NAME} \
+        --output table > $dir_name/P2SConnection/$filename
 
     # Check the status of the previous command
     if [ $? -ne 0 ]; then

@@ -1,0 +1,199 @@
+## List routem maps by resource group.
+
+``` bash
+phil [ ~ ]$ az network vhub route-map list --resource-group rg-pinhuang --vhub-name vhub-cc
+[]
+```
+
+## Create a route map.
+
+``` bash
+phil [ ~ ]$ az network vhub route-map create --name route-map-test \
+                                 --resource-group rg-pinhuang \
+                                 --vhub-name vhub-cc
+
+phil [ ~ ]$ az network vhub route-map create --name route-map-test --resource-group rg-pinhuang --vhub-name vhub-cc
+{
+  "associatedInboundConnections": [],
+  "associatedOutboundConnections": [],
+  "etag": "W/\"31218074-4158-4371-903e-870dae3ac21a\"",
+  "id": "/subscriptions/xxxx-xxxx-xxxx-xxx/resourceGroups/rg-pinhuang/providers/Microsoft.Network/virtualHubs/vhub-cc/routeMaps/route-map-test",
+  "name": "route-map-test",
+  "provisioningState": "Succeeded",
+  "resourceGroup": "rg-pinhuang",
+  "rules": [],
+  "type": "Microsoft.Network/virtualHubs/routeMaps"
+}
+```
+
+### List route map rules
+
+``` bash
+phil [ ~ ]$ az network vhub route-map rule list --resource-group rg-pinhuang \
+                                    --route-map-name route-map-test \
+                                    --vhub-name vhub-cc
+[]
+```
+
+### Add route map rule
+```
+phil [ ~ ]$ az network vhub route-map rule add --resource-group rg-pinhuang \
+                                   --route-map-name route-map-test \
+                                   --vhub-name vhub-cc \
+                                   --next-step Continue \
+                                   --match-criteria "[{matchCondition:Contains,routePrefix:[192.168.78.0/24]}]" \
+                                   --actions "[{type:Add,parameters:[{asPath:[65533]}]}]" \
+                                   --name rule-add-65533 \
+                                   --rule-index 0
+
+phil [ ~ ]$ az network vhub route-map list --resource-group rg-pinhuang --vhub-name vhub-cc
+[
+  {
+    "associatedInboundConnections": [],
+    "associatedOutboundConnections": [],
+    "etag": "W/\"4f8ed0e3-e14d-4173-9bc9-36d9e2d9a41b\"",
+    "id": "/subscriptions/xxx-xxx-xxx-xx/resourceGroups/rg-pinhuang/providers/Microsoft.Network/virtualHubs/vhub-cc/routeMaps/route-map-test",
+    "name": "route-map-test",
+    "provisioningState": "Failed",
+    "resourceGroup": "rg-pinhuang",
+    "rules": [
+      {
+        "actions": [
+          {
+            "parameters": [
+              {
+                "asPath": [
+                  "65533"
+                ],
+                "community": [],
+                "routePrefix": []
+              }
+            ],
+            "type": "Add"
+          }
+        ],
+        "matchCriteria": [
+          {
+            "asPath": [],
+            "community": [],
+            "matchCondition": "Contains",
+            "routePrefix": [
+              "192.168.78.0/24"
+            ]
+          }
+        ],
+        "name": "rule-add-65533",
+        "nextStepIfMatched": "Continue"
+      },
+      {
+        "actions": [
+          {
+            "parameters": [
+              {
+                "asPath": [
+                  "65533"
+                ],
+                "community": [],
+                "routePrefix": []
+              }
+            ],
+            "type": "Add"
+          }
+        ],
+        "matchCriteria": [
+          {
+            "asPath": [],
+            "community": [],
+            "matchCondition": "Contains",
+            "routePrefix": [
+              "192.168.78.0/24"
+            ]
+          }
+        ],
+        "name": "rule-add-65533",
+        "nextStepIfMatched": "Continue"
+      }
+    ],
+    "type": "Microsoft.Network/virtualHubs/routeMaps"
+  }
+]
+```
+
+### Delte route map rule
+
+``` bash
+phil [ ~ ]$ az network vhub route-map rule delete --resource-group rg-pinhuang \
+                                      --route-map-name route-map-test \
+                                      --rule-index 0 \
+                                      --vhub-name vhub-cc
+phil [ ~ ]$ az network vhub route-map list --resource-group rg-pinhuang --vhub-name vhub-cc
+[
+  {
+    "associatedInboundConnections": [],
+    "associatedOutboundConnections": [],
+    "etag": "W/\"992e605d-74a4-4be2-997a-78c1b1fdceba\"",
+    "id": "/subscriptions/1caa5ab4-523f-4851-952b-1b689c48fae9/resourceGroups/rg-pinhuang/providers/Microsoft.Network/virtualHubs/vhub-cc/routeMaps/route-map-test",
+    "name": "route-map-test",
+    "provisioningState": "Succeeded",
+    "resourceGroup": "rg-pinhuang",
+    "rules": [],
+    "type": "Microsoft.Network/virtualHubs/routeMaps"
+  }
+]
+```
+
+### Add route map rule
+```
+phil [ ~ ]$ az network vhub route-map rule add --resource-group rg-pinhuang \
+                                   --route-map-name route-map-test \
+                                   --vhub-name vhub-cc \
+                                   --next-step Continue \
+                                   --match-criteria "[{matchCondition:Contains,routePrefix:[192.168.78.0/24]}]" \
+                                   --actions "[{type:Add,parameters:[{routePrefix:[8.8.8.8]}]}]" \
+                                   --name rule-add-pbr \
+                                   --rule-index 0
+
+```
+
+
+
+https://github.com/Azure/azure-cli-extensions/pull/5878/files#diff-3c39ecdb6ad1126eb8010c2cf22e316463c9e1534ac3e225ba8de435c6b88bc5
+
+https://github.com/PARADISSEEKR/azure-cli-extensions/blob/e613156d5c0513595dbba909a1f9aac8e8e6c590/src/virtual-wan/azext_vwan/aaz/latest/network/vhub/route_map/rule/_add.py
+
+
+## Update route map
+
+``` bash
+
+az network vhub route-map update -n route-map-name \
+    -g rg \
+    --vhub-name vhub-name \
+    --rules "[{name:rule1,matchCriteria:[{matchCondition:Contains,routePrefix:[10.0.0.0/8]}],actions:[{type:Add,parameters:[{asPath:[22334]}]}]}]"
+
+```
+
+
+
+- match-criteria
+    - matchCondition
+        - Contains
+        - Equals
+        - NotContains
+        - NotEquals
+        - Unknown
+    - community
+    - routePrefix
+    - asPath
+
+- actions
+    - type
+        - Add
+        - Drop
+        - Remove
+        - Replace
+        - Unknown
+    - parameters
+        - asPath
+        - community
+        - routePrefix
