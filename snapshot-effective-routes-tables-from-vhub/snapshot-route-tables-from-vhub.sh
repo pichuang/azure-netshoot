@@ -3,8 +3,9 @@
 # Specify the resource group and vhub names
 RESOURCE_GROUPNAME="rg-pinhuang"
 VHUB_NAME="vhub-cc"
-TIMEZONE="Asia/Taipei"
+TIMEZONE="Asia/Taipei" # Ref: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 DEBUG_OUTPUT=false # true or false
+OUTPUT_FORMAT="table" # table, tsv, json, yaml
 
 # Get the current timestamp
 timestamp="$(TZ=${TIMEZONE} date +%Y%m%d-%H%M%S)"
@@ -62,7 +63,7 @@ for rt in $route_tables; do
         --resource-group ${RESOURCE_GROUPNAME} \
         --name ${VHUB_NAME} \
         --query "value[].{addressPrefixes:addressPrefixes[0], asPath:asPath, nextHopType:nextHopType}" \
-        --output table > $dir_name/RouteTable/$filename
+        --output ${OUTPUT_FORMAT} > $dir_name/RouteTable/$filename
 
     # Check the status of the previous command
     if [ $? -ne 0 ]; then
@@ -103,7 +104,7 @@ for vpn_gateway in $vpn_gateways; do
         --resource-group ${RESOURCE_GROUPNAME} \
         --name ${VHUB_NAME} \
         --query "value[].{addressPrefixes:addressPrefixes[0], asPath:asPath, nextHopType:nextHopType}" \
-        --output table > $dir_name/VpnConnection/$filename
+        --output ${OUTPUT_FORMAT} > $dir_name/VpnConnection/$filename
 
     # Check the status of the previous command
     if [ $? -ne 0 ]; then
@@ -144,7 +145,7 @@ for express_route_gateway in $express_route_gateways; do
         --resource-group ${RESOURCE_GROUPNAME} \
         --name ${VHUB_NAME} \
         --query "value[].{addressPrefixes:addressPrefixes[0], asPath:asPath, nextHopType:nextHopType}" \
-        --output table > $dir_name/ExpressRouteConnection/$filename
+        --output ${OUTPUT_FORMAT} > $dir_name/ExpressRouteConnection/$filename
 
     # Check the status of the previous command
     if [ $? -ne 0 ]; then
@@ -185,7 +186,7 @@ for vnc in $virtual_network_connections; do
         --resource-group ${RESOURCE_GROUPNAME} \
         --name ${VHUB_NAME} \
         --query "value[].{addressPrefixes:addressPrefixes[0], asPath:asPath, nextHopType:nextHopType}" \
-        --output table > $dir_name/HubVirtualNetworkConnection/$filename
+        --output ${OUTPUT_FORMAT} > $dir_name/HubVirtualNetworkConnection/$filename
 
     # Check the status of the previous command
     if [ $? -ne 0 ]; then
@@ -226,7 +227,7 @@ for p2s in $p2s_connections; do
         --resource-id ${p2s_id} \
         --resource-group ${RESOURCE_GROUPNAME} \
         --name ${VHUB_NAME} \
-        --output table > $dir_name/P2SConnection/$filename
+        --output ${OUTPUT_FORMAT} > $dir_name/P2SConnection/$filename
 
     # Check the status of the previous command
     if [ $? -ne 0 ]; then

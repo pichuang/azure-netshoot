@@ -12,6 +12,7 @@ This bash script allows you to export all of the route tables associated with an
    - `VHUB_NAME`: The name of the virtual hub.
    - `DEBUG_OUTPUT`: Set this to `true` or `false` to output debugging information.
    - `TIMEZONE`: Set this to your local timezone.
+   - `OUTPUT_FORMAT`: Set this to `json`, `table`, `tsv` or `yaml` to output the results in azure output format.
 
 4. Run the script using the following command:
 
