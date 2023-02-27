@@ -4,7 +4,7 @@
 RESOURCE_GROUPNAME="rg-pinhuang"
 VHUB_NAME="vhub-cc"
 TIMEZONE="Asia/Taipei"
-DEBUG_OUTPUT=true # true or false
+DEBUG_OUTPUT=false # true or false
 
 # Get the current timestamp
 timestamp="$(TZ=${TIMEZONE} date +%Y%m%d-%H%M%S)"
@@ -70,6 +70,8 @@ for rt in $route_tables; do
         exit 1
     else
         echo "Save $dir_name/RouteTable/$filename"
+        cat $dir_name/RouteTable/$filename
+        echo
     fi
 done
 
@@ -95,7 +97,13 @@ for vpn_gateway in $vpn_gateways; do
     filename="${vpn_gateway_name}.json"
 
     # Call the get-effective-routes command and output the results in JSON format
-    az network vhub get-effective-routes --resource-type VpnConnection --resource-id ${vpn_gateway_id} --resource-group ${RESOURCE_GROUPNAME} --name ${VHUB_NAME} --output table > $dir_name/VpnConnection/$filename
+    az network vhub get-effective-routes \
+        --resource-type VpnConnection \
+        --resource-id ${vpn_gateway_id} \
+        --resource-group ${RESOURCE_GROUPNAME} \
+        --name ${VHUB_NAME} \
+        --query "value[].{addressPrefixes:addressPrefixes[0], asPath:asPath, nextHopType:nextHopType}" \
+        --output table > $dir_name/VpnConnection/$filename
 
     # Check the status of the previous command
     if [ $? -ne 0 ]; then
@@ -103,6 +111,8 @@ for vpn_gateway in $vpn_gateways; do
         exit 1
     else
         echo "Save $dir_name/VpnConnection/$filename"
+        cat $dir_name/VpnConnection/$filename
+        echo
     fi
 done
 
@@ -142,6 +152,8 @@ for express_route_gateway in $express_route_gateways; do
         exit 1
     else
         echo "Save $dir_name/ExpressRouteConnection/$filename"
+        cat $dir_name/ExpressRouteConnection/$filename
+        echo
     fi
 done
 
@@ -172,6 +184,7 @@ for vnc in $virtual_network_connections; do
         --resource-id ${vnc_id} \
         --resource-group ${RESOURCE_GROUPNAME} \
         --name ${VHUB_NAME} \
+        --query "value[].{addressPrefixes:addressPrefixes[0], asPath:asPath, nextHopType:nextHopType}" \
         --output table > $dir_name/HubVirtualNetworkConnection/$filename
 
     # Check the status of the previous command
@@ -180,6 +193,8 @@ for vnc in $virtual_network_connections; do
         exit 1
     else
         echo "Save $dir_name/HubVirtualNetworkConnection/$filename"
+        cat $dir_name/HubVirtualNetworkConnection/$filename
+        echo
     fi
 done
 
@@ -219,6 +234,8 @@ for p2s in $p2s_connections; do
         exit 1
     else
         echo "Save $dir_name/P2SConnection/$filename"
+        cat $dir_name/P2SConnection/$filename
+        echo
     fi
 done
 
