@@ -1,0 +1,94 @@
+phil [ ~ ]$ diff -bur vhub-cc-20230228-155823 vhub-cc-20230228-163129/
+diff -bur vhub-cc-20230228-155823/ExpressRouteConnection/xxxx-xxxx-xxxx-xxxx-canadacentral-er-gw.json vhub-cc-20230228-163129/ExpressRouteConnection/xxxx-xxxx-xxxx-xxxx-canadacentral-er-gw.json
+--- vhub-cc-20230228-155823/ExpressRouteConnection/xxxx-xxxx-xxxx-xxxx-canadacentral-er-gw.json    2023-02-28 07:59:33.818422371 +0000
++++ vhub-cc-20230228-163129/ExpressRouteConnection/xxxx-xxxx-xxxx-xxxx-canadacentral-er-gw.json    2023-02-28 08:32:36.414113243 +0000
+@@ -15,3 +15,34 @@
+ 10.206.0.0/16      12076-12076-12076  ExpressRouteGateway
+ 192.168.78.0/24                       VPN_S2S_Gateway
+ 192.168.79.0/24                       VPN_S2S_Gateway
++10.105.0.0/26      12076-398656       ExpressRouteGateway
++10.105.1.0/25      12076-398656       ExpressRouteGateway
++10.105.1.128/25    12076-398656       ExpressRouteGateway
++10.105.2.0/25      12076-398656       ExpressRouteGateway
++10.105.0.64/26     12076-398656       ExpressRouteGateway
++10.5.1.0/24        12076-398656       ExpressRouteGateway
++10.5.2.0/24        12076-398656       ExpressRouteGateway
++10.5.3.0/24        12076-398656       ExpressRouteGateway
++10.5.4.0/24        12076-398656       ExpressRouteGateway
++10.5.5.0/24        12076-398656       ExpressRouteGateway
++10.105.3.0/26      12076-398656       ExpressRouteGateway
++10.105.0.192/32    12076-398656       ExpressRouteGateway
++10.105.1.3/32      12076-398656       ExpressRouteGateway
++10.105.1.131/32    12076-398656       ExpressRouteGateway
++10.105.2.3/32      12076-398656       ExpressRouteGateway
++10.105.1.4/32      12076-398656       ExpressRouteGateway
++10.105.1.132/32    12076-398656       ExpressRouteGateway
++10.105.2.4/32      12076-398656       ExpressRouteGateway
++10.105.1.2/32      12076-398656       ExpressRouteGateway
++10.105.1.130/32    12076-398656       ExpressRouteGateway
++10.105.2.2/32      12076-398656       ExpressRouteGateway
++10.106.1.4/32      12076-398656       ExpressRouteGateway
++10.106.1.132/32    12076-398656       ExpressRouteGateway
++10.106.2.4/32      12076-398656       ExpressRouteGateway
++10.106.1.2/32      12076-398656       ExpressRouteGateway
++10.106.1.130/32    12076-398656       ExpressRouteGateway
++10.106.2.2/32      12076-398656       ExpressRouteGateway
++10.106.1.3/32      12076-398656       ExpressRouteGateway
++10.106.1.131/32    12076-398656       ExpressRouteGateway
++10.106.2.3/32      12076-398656       ExpressRouteGateway
++10.205.0.0/16      12076-12076-12076  ExpressRouteGateway
+diff -bur vhub-cc-20230228-155823/RouteTable/defaultRouteTable.json vhub-cc-20230228-163129/RouteTable/defaultRouteTable.json
+--- vhub-cc-20230228-155823/RouteTable/defaultRouteTable.json   2023-02-28 07:58:41.577599079 +0000
++++ vhub-cc-20230228-163129/RouteTable/defaultRouteTable.json   2023-02-28 08:31:44.493294890 +0000
+@@ -36,3 +36,13 @@
+ 10.105.1.2/32      12076-398656       ExpressRouteGateway
+ 10.105.1.130/32    12076-398656       ExpressRouteGateway
+ 10.105.2.2/32      12076-398656       ExpressRouteGateway
++10.106.1.4/32      12076-398656       ExpressRouteGateway
++10.106.1.132/32    12076-398656       ExpressRouteGateway
++10.106.2.4/32      12076-398656       ExpressRouteGateway
++10.106.1.2/32      12076-398656       ExpressRouteGateway
++10.106.1.130/32    12076-398656       ExpressRouteGateway
++10.106.2.2/32      12076-398656       ExpressRouteGateway
++10.106.1.3/32      12076-398656       ExpressRouteGateway
++10.106.1.131/32    12076-398656       ExpressRouteGateway
++10.106.2.3/32      12076-398656       ExpressRouteGateway
++10.205.0.0/16      12076-12076-12076  ExpressRouteGateway
+diff -bur vhub-cc-20230228-155823/VpnConnection/26e9a1465d5e44dfa66df85611234549-canadacentral-gw.json vhub-cc-20230228-163129/VpnConnection/26e9a1465d5e44dfa66df85611234549-canadacentral-gw.json
+--- vhub-cc-20230228-155823/VpnConnection/26e9a1465d5e44dfa66df85611234549-canadacentral-gw.json        2023-02-28 07:59:19.710200458 +0000
++++ vhub-cc-20230228-163129/VpnConnection/26e9a1465d5e44dfa66df85611234549-canadacentral-gw.json        2023-02-28 08:32:22.449893634 +0000
+@@ -15,3 +15,34 @@
+ 10.206.0.0/16      12076-12076-12076  ExpressRouteGateway
+ 192.168.78.0/24                       VPN_S2S_Gateway
+ 192.168.79.0/24                       VPN_S2S_Gateway
++10.105.0.0/26      12076-398656       ExpressRouteGateway
++10.105.1.0/25      12076-398656       ExpressRouteGateway
++10.105.1.128/25    12076-398656       ExpressRouteGateway
++10.105.2.0/25      12076-398656       ExpressRouteGateway
++10.105.0.64/26     12076-398656       ExpressRouteGateway
++10.5.1.0/24        12076-398656       ExpressRouteGateway
++10.5.2.0/24        12076-398656       ExpressRouteGateway
++10.5.3.0/24        12076-398656       ExpressRouteGateway
++10.5.4.0/24        12076-398656       ExpressRouteGateway
++10.5.5.0/24        12076-398656       ExpressRouteGateway
++10.105.3.0/26      12076-398656       ExpressRouteGateway
++10.105.0.192/32    12076-398656       ExpressRouteGateway
++10.105.1.3/32      12076-398656       ExpressRouteGateway
++10.105.1.131/32    12076-398656       ExpressRouteGateway
++10.105.2.3/32      12076-398656       ExpressRouteGateway
++10.105.1.4/32      12076-398656       ExpressRouteGateway
++10.105.1.132/32    12076-398656       ExpressRouteGateway
++10.105.2.4/32      12076-398656       ExpressRouteGateway
++10.105.1.2/32      12076-398656       ExpressRouteGateway
++10.105.1.130/32    12076-398656       ExpressRouteGateway
++10.105.2.2/32      12076-398656       ExpressRouteGateway
++10.106.1.4/32      12076-398656       ExpressRouteGateway
++10.106.1.132/32    12076-398656       ExpressRouteGateway
++10.106.2.4/32      12076-398656       ExpressRouteGateway
++10.106.1.2/32      12076-398656       ExpressRouteGateway
++10.106.1.130/32    12076-398656       ExpressRouteGateway
++10.106.2.2/32      12076-398656       ExpressRouteGateway
++10.106.1.3/32      12076-398656       ExpressRouteGateway
++10.106.1.131/32    12076-398656       ExpressRouteGateway
++10.106.2.3/32      12076-398656       ExpressRouteGateway
++10.205.0.0/16      12076-12076-12076  ExpressRouteGateway
