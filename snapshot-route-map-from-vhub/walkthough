@@ -149,12 +149,19 @@ phil [ ~ ]$ az network vhub route-map rule add --resource-group rg-pinhuang \
                                    --vhub-name vhub-cc \
                                    --next-step Continue \
                                    --match-criteria "[{matchCondition:Contains,routePrefix:[192.168.78.0/24]}]" \
-                                   --actions "[{type:Add,parameters:[{routePrefix:[8.8.8.8]}]}]" \
+                                   --actions "[{type:Add,parameters:[{asPath:[65515]}]}]" \
                                    --name rule-add-pbr \
                                    --rule-index 0
 
 ```
 
+az network vhub route-map update \
+  --vhub-name vhub-cc \
+  --resource-group rg-pinhuang \
+  --outbound-connections ExpressRouteConnection \
+  --inbound-connection ExpressRouteConnection \
+  --name route-map-test \
+  --rules "[{name:rule1,matchCriteria:[{matchCondition:Contains,routePrefix:[10.6.1.0/24]}],actions:[{type:Add,parameters:[{asPath:[65533]}]}]}]"
 
 
 https://github.com/Azure/azure-cli-extensions/pull/5878/files#diff-3c39ecdb6ad1126eb8010c2cf22e316463c9e1534ac3e225ba8de435c6b88bc5
@@ -166,10 +173,10 @@ https://github.com/PARADISSEEKR/azure-cli-extensions/blob/e613156d5c0513595dbba9
 
 ``` bash
 
-az network vhub route-map update -n route-map-name \
-    -g rg \
-    --vhub-name vhub-name \
-    --rules "[{name:rule1,matchCriteria:[{matchCondition:Contains,routePrefix:[10.0.0.0/8]}],actions:[{type:Add,parameters:[{asPath:[22334]}]}]}]"
+az network vhub route-map update -n route-map-test \
+    -g rg-pinhuang \
+    --vhub-name vhub-cc \
+    --rules "[{name:rule1,matchCriteria:[{matchCondition:Contains,routePrefix:[192.168.78.0/24]}],actions:[{type:Add,parameters:[{asPath:[65515]}]}]}]"
 
 ```
 
